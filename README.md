@@ -38,13 +38,13 @@ For your submission, please upload the following files to [Gradescope](https://w
 * `hw1-chatgpt-logs.txt` (if you used ChatGPT or a similar text-based AI assistant)
 
 Do not change the names of these files, and do not upload any other files to Gradescope. Failure to follow the
-submission instructions may result in a penalty of up to 5 points.
+submission instructions may result in a penalty of up to 1 point.
 
 ## Grading
 
-The point values for each problem are given below. Problem 1c is worth 5 extra credit points, but the maximum possible
-grade on this assignment is 100 points. If you earn a total of 100 points or more _including the extra credit points_,
-then your grade will be 100.
+The point values for each problem are given below. Problem 1c is worth 1 extra credit point, but the maximum possible
+grade on this assignment is 20 points. If you earn a total of 20 points or more _including the extra credit points_,
+then your grade will be 20.
 
 | Problem                                   | Problem Type  | Points |
 |-------------------------------------------|---------------|--------|

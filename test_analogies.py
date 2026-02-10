@@ -1,6 +1,7 @@
 """
 Code for Problems 2 and 3 of HW 1.
 """
+
 from typing import Dict, List, Tuple
 
 import numpy as np
@@ -22,8 +23,7 @@ def cosine_sim(x: np.ndarray, y: np.ndarray) -> np.ndarray:
     raise NotImplementedError("Problem 3b has not been completed yet!")
 
 
-def get_closest_words(embeddings: Embeddings, vectors: np.ndarray,
-                      k: int = 1) -> List[List[str]]:
+def get_closest_words(embeddings: Embeddings, vectors: np.ndarray, k: int = 1) -> List[List[str]]:
     """
     Problem 3c: Implement this function.
 
@@ -59,11 +59,19 @@ def load_analogies(filename: str) -> AnalogiesDataset:
         format of the data is described in the problem set and in the
         docstring for the AnalogiesDataset type alias
     """
-    raise NotImplementedError("Problem 2b has not been completed yet!")
+    analogies: AnalogiesDataset = {}
+    curr_analogies = []
+    with open(filename, "r") as f:
+        for line in f:
+            if line.startswith(":"):
+                curr_analogies = analogies.setdefault(line[2:-1], [])
+            else:
+                a, b, c, d = line.split()
+                curr_analogies.append((a, b, c, d))
+    return analogies
 
 
-def run_analogy_test(embeddings: Embeddings, test_data: AnalogiesDataset,
-                     k: int = 1) -> Dict[str, float]:
+def run_analogy_test(embeddings: Embeddings, test_data: AnalogiesDataset, k: int = 1) -> Dict[str, float]:
     """
     Problem 3d: Implement this function.
 

@@ -20,7 +20,7 @@ def cosine_sim(x: np.ndarray, y: np.ndarray) -> np.ndarray:
     :return: An array of shape (m, n), where the entry in row i and
         column j is the cosine similarity between x[i] and y[j]
     """
-    raise NotImplementedError("Problem 3b has not been completed yet!")
+    return (x @ y.T) / np.outer(np.linalg.norm(x, axis=1), np.linalg.norm(y, axis=1))
 
 
 def get_closest_words(embeddings: Embeddings, vectors: np.ndarray, k: int = 1) -> List[List[str]]:
@@ -37,7 +37,7 @@ def get_closest_words(embeddings: Embeddings, vectors: np.ndarray, k: int = 1) -
         k words that are closest to vectors[i] in the embedding space,
         not necessarily in order
     """
-    raise NotImplementedError("Problem 3c has not been completed yet!")
+    return np.array(embeddings.words)[np.argsort(-cosine_sim(vectors, embeddings.vectors), axis=1)[:, :k]].tolist()
 
 
 # This type alias represents the format that the testing data should be
@@ -66,7 +66,7 @@ def load_analogies(filename: str) -> AnalogiesDataset:
             if line.startswith(":"):
                 curr_analogies = analogies.setdefault(line[2:-1], [])
             else:
-                a, b, c, d = line.split()
+                a, b, c, d = [s.lower() for s in line.split()]
                 curr_analogies.append((a, b, c, d))
     return analogies
 

@@ -37,6 +37,7 @@ def get_closest_words(embeddings: Embeddings, vectors: np.ndarray, k: int = 1) -
         k words that are closest to vectors[i] in the embedding space,
         not necessarily in order
     """
+    # I managed to avoid for loops using the method np.argsort I found! :)
     return np.array(embeddings.words)[np.argsort(-cosine_sim(vectors, embeddings.vectors), axis=1)[:, :k]].tolist()
 
 
@@ -88,4 +89,10 @@ def run_analogy_test(embeddings: Embeddings, test_data: AnalogiesDataset, k: int
         that maps each relation type to the analogy question accuracy
         attained by embeddings on analogies from that relation type
     """
-    raise NotImplementedError("Problem 3d has not been completed yet!")
+    results = {}
+    for c, analogies in test_data.items():
+        analogies = np.array(analogies)
+        predictions = (embeddings[analogies[:, 2]] - embeddings[analogies[:, 0]] + embeddings[analogies[:, 1]])
+        successes = np.any(get_closest_words(embeddings, predictions) == analogies[:, 3][:, np.newaxis], axis=1)
+        results[c] = (np.sum(successes) / successes.shape[0]).item()
+    return results

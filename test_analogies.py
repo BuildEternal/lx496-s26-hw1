@@ -93,6 +93,6 @@ def run_analogy_test(embeddings: Embeddings, test_data: AnalogiesDataset, k: int
     for c, analogies in test_data.items():
         analogies = np.array(analogies)
         predictions = (embeddings[analogies[:, 2]] - embeddings[analogies[:, 0]] + embeddings[analogies[:, 1]])
-        successes = np.any(get_closest_words(embeddings, predictions) == analogies[:, 3][:, np.newaxis], axis=1)
+        successes = np.any(get_closest_words(embeddings, predictions, k) == analogies[:, 3][:, np.newaxis], axis=1)
         results[c] = (np.sum(successes) / successes.shape[0]).item()
     return results

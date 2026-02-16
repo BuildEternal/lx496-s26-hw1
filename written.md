@@ -10,41 +10,6 @@ Then, I got curious about the error I was seeing, `KeyError: 'h'`. Since "h" is 
 
 ## Problem 4a
 
-I'm not sure whether this question requires the question accuracies to be weighted by the number of analogies in each category, but for simplicity I've calculated these answers by simply averaging all relevant categories.
-
-### (4a) Code
-
-I've used the following code to compute these values:
-
-```py
-embeddings = Embeddings.from_file("data/glove_XXXd.txt")
-test_data = load_analogies("data/analogies.txt")
-
-res = run_analogy_test(embeddings, test_data, k=1)
-
-semantic_sum = 0
-semantic_count = 0
-
-syntactic_sum = 0
-syntactic_count = 0
-
-for k in res.keys():
-    if k.startswith("gram"):
-        # syntactic
-        syntactic_sum += res[k]
-        syntactic_count += 1
-    else:
-        # semantic
-        semantic_sum += res[k]
-        semantic_count += 1
-
-print("Semantic:", semantic_sum / semantic_count)
-print("Syntactic:", syntactic_sum / syntactic_count)
-print("Overall:", (semantic_sum + syntactic_sum) / (semantic_count + syntactic_count))
-```
-
-### (4a) Results
-
 | Embedding Space | Semantic | Syntactic | Overall |
 |-----------------|----------|-----------|---------|
 | GloVe 50        |    0.384 |     0.245 |   0.295 |
@@ -66,23 +31,6 @@ I would assume that as the dimensionality increases, the accuracy of the embeddi
 With this added leniency, the accuracy has improved. This time, the accuracy does improve with the dimensionality, although the gains between 100 and 200 dimensions seem very small.
 
 ## Problem 4c
-
-### (4c) Code
-
-I've used the following code to compute these values:
-
-```py
-embeddings = Embeddings.from_file("data/glove_XXXd.txt")
-
-print(get_closest_words(embeddings, embeddings[["italy"]] - embeddings[["france"]] + embeddings[["paris"]], k=1))
-print(get_closest_words(embeddings, embeddings[["japan"]] - embeddings[["france"]] + embeddings[["paris"]], k=1))
-print(get_closest_words(embeddings, embeddings[["florida"]] - embeddings[["france"]] + embeddings[["paris"]], k=1))
-print(get_closest_words(embeddings, embeddings[["small"]] - embeddings[["big"]] + embeddings[["bigger"]], k=1))
-print(get_closest_words(embeddings, embeddings[["cold"]] - embeddings[["big"]] + embeddings[["bigger"]], k=1))
-print(get_closest_words(embeddings, embeddings[["quick"]] - embeddings[["big"]] + embeddings[["bigger"]], k=1))
-```
-
-### (4c) Results
 
 | Analogy Question                | Gold Answer  | GloVe 50 | GloVe 100 | GloVe 200 |
 |---------------------------------|--------------|----------|-----------|-----------|
